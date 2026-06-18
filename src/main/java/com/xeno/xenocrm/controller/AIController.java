@@ -1,0 +1,52 @@
+package com.xeno.xenocrm.controller;
+
+import com.xeno.xenocrm.entity.Lead;
+import com.xeno.xenocrm.repository.LeadRepository;
+import com.xeno.xenocrm.service.AIService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/ai")
+@CrossOrigin(origins = "*")
+public class AIController {
+
+    @Autowired
+    private AIService aiService;
+
+    @Autowired
+    private LeadRepository leadRepository;
+
+
+
+    @GetMapping("/email/{id}")
+
+    public String generateEmail(
+
+            @PathVariable Long id) {
+
+
+
+        Lead lead =
+
+                leadRepository.findById(id)
+
+                        .orElseThrow(() ->
+
+                                new RuntimeException(
+
+                                        "Lead Not Found"
+
+                                )
+
+                        );
+
+
+
+        return aiService.generateEmail(lead);
+
+    }
+
+}
