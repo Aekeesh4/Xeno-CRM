@@ -2,7 +2,7 @@ package com.xeno.xenocrm.service;
 
 import com.xeno.xenocrm.entity.Lead;
 import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class AIService {
 
@@ -235,107 +235,77 @@ public class AIService {
 
 
     // ===== AI EMAIL GENERATOR =====
+    public String generateAIEmail(Lead lead) {
 
-    public String generateEmail(Lead lead) {
+        String subject;
 
-        StringBuilder email =
+        if (lead.getCompany() != null &&
+                !lead.getCompany().isBlank()) {
 
-                new StringBuilder();
+            subject =
+                    "How Xeno CRM can help "
+                            + lead.getCompany();
 
+        } else {
 
-
-        email.append(
-
-                "Subject: Enterprise CRM Demo\n\n"
-
-        );
-
-
-
-        email.append(
-
-                        "Hi "
-
-                )
-
-                .append(
-
-                        lead.getCustomerName()
-
-                )
-
-                .append(
-
-                        ",\n\n"
-
-                );
-
-
-
-        email.append(
-
-                "Thank you for showing interest in our Enterprise CRM.\n\n"
-
-        );
-
-
-
-        if (
-
-                lead.getCompany() != null
-
-                        &&
-
-                        !lead.getCompany().isBlank()
-
-        ) {
-
-            email.append(
-
-                            "We believe our CRM can help "
-
-                    )
-
-                    .append(
-
-                            lead.getCompany()
-
-                    )
-
-                    .append(
-
-                            " improve customer management and business growth.\n\n"
-
-                    );
-
+            subject =
+                    "Boost Your Business with Xeno CRM";
         }
 
 
+        StringBuilder email = new StringBuilder();
+
+        email.append("Subject: ")
+                .append(subject)
+                .append("\n\n");
+
+
+        email.append("Hi ")
+                .append(lead.getCustomerName())
+                .append(",\n\n");
+
 
         email.append(
-
-                "We would love to schedule a demo and discuss your requirements.\n\n"
-
+                "Thank you for showing interest in Xeno CRM.\n\n"
         );
 
 
+        if (lead.getCompany() != null &&
+                !lead.getCompany().isBlank()) {
+
+            email.append(
+                            "We believe ")
+                    .append(lead.getCompany())
+                    .append(
+                            " can improve customer management, sales tracking and follow-ups using our CRM solution.\n\n"
+                    );
+        }
+
+
+        if (lead.getNotes() != null &&
+                !lead.getNotes().isBlank()) {
+
+            email.append(
+                            "We noticed your requirement: ")
+                    .append(lead.getNotes())
+                    .append(".\n\n");
+        }
+
 
         email.append(
+                "Our team would love to schedule a quick demo and discuss how Xeno CRM can help your business grow.\n\n"
+        );
 
+        email.append(
                 "Regards,\n"
-
         );
 
-
-
         email.append(
-
                 "Xeno CRM Team"
-
         );
 
         return email.toString();
-
     }
+
 
 }

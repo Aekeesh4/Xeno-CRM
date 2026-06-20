@@ -19,8 +19,28 @@ function Leads() {
   const [generatedEmail, setGeneratedEmail] = useState("");
 
   const [showEmail, setShowEmail] = useState(false);
+const [emailTo, setEmailTo] = useState("");
+const [editingLead, setEditingLead] = useState(null);
 
+const [formData, setFormData] = useState({
 
+  customerName: "",
+
+  email: "",
+
+  phone: "",
+
+  company: "",
+
+  source: "",
+
+  assignedTo: "",
+
+  status: "NEW",
+
+  notes: ""
+
+});
 
 
   const user =
@@ -104,6 +124,17 @@ function Leads() {
 
 
       setGeneratedEmail(data);
+      const lead = leads.find(
+
+        l => l.id === id
+
+      );
+
+      setEmailTo(
+
+        lead.email
+
+      );
 
       setShowEmail(true);
 
@@ -150,7 +181,57 @@ function Leads() {
     );
 
   };
+const sendEmail = async () => {
 
+  try {
+
+    await fetch(
+
+      "http://localhost:8081/api/email/send",
+
+      {
+
+        method:"POST",
+
+        headers:{
+
+          "Content-Type":"application/json"
+
+        },
+
+        body:JSON.stringify({
+
+          to: emailTo,
+
+          subject:"Xeno CRM Offer",
+
+          body: generatedEmail
+
+        })
+
+      }
+
+    );
+
+    toast.success(
+
+      "Email Sent Successfully"
+
+    );
+
+  }
+
+  catch {
+
+    toast.error(
+
+      "Email Sending Failed"
+
+    );
+
+  }
+
+}
 
 
 
@@ -427,6 +508,70 @@ function Leads() {
     }
 
   };
+  const startEdit = (lead) => {
+
+    setEditingLead(lead.id);
+
+    setFormData({
+
+      customerName: lead.customerName,
+
+      email: lead.email,
+
+      phone: lead.phone,
+
+      company: lead.company,
+
+      source: lead.source,
+
+      assignedTo: lead.assignedTo,
+
+      status: lead.status,
+
+      notes: lead.notes
+
+    });
+
+  };
+  const updateLead = async () => {
+
+    try {
+
+      await fetch(
+
+        `http://localhost:8081/api/lead/update/${editingLead}`,
+
+        {
+
+          method: "PUT",
+
+          headers: {
+
+            "Content-Type": "application/json"
+
+          },
+
+          body: JSON.stringify(formData)
+
+        }
+
+      );
+
+      toast.success("Lead Updated");
+
+      setEditingLead(null);
+
+      fetchLeads();
+
+    }
+
+    catch {
+
+      toast.error("Update Failed");
+
+    }
+
+  };
     const filteredLeads =
 
       leads.filter(
@@ -536,7 +681,191 @@ function Leads() {
 
 
 
+{
+editingLead &&
 
+<div className="card p-4 mb-4 shadow">
+
+<h3 className="mb-3">
+
+Edit Lead
+
+</h3>
+
+
+<input
+
+className="form-control mb-3"
+
+placeholder="Customer Name"
+
+value={formData.customerName}
+
+onChange={(e)=>
+
+setFormData({
+
+...formData,
+
+customerName:e.target.value
+
+})
+
+}
+
+/>
+
+
+
+<input
+
+className="form-control mb-3"
+
+placeholder="Email"
+
+value={formData.email}
+
+onChange={(e)=>
+
+setFormData({
+
+...formData,
+
+email:e.target.value
+
+})
+
+}
+
+/>
+
+
+
+<input
+
+className="form-control mb-3"
+
+placeholder="Phone"
+
+value={formData.phone}
+
+onChange={(e)=>
+
+setFormData({
+
+...formData,
+
+phone:e.target.value
+
+})
+
+}
+
+/>
+
+
+
+<input
+
+className="form-control mb-3"
+
+placeholder="Company"
+
+value={formData.company}
+
+onChange={(e)=>
+
+setFormData({
+
+...formData,
+
+company:e.target.value
+
+})
+
+}
+
+/>
+
+
+
+<select
+
+className="form-select mb-3"
+
+value={formData.status}
+
+onChange={(e)=>
+
+setFormData({
+
+...formData,
+
+status:e.target.value
+
+})
+
+}
+
+>
+
+<option value="NEW">
+
+NEW
+
+</option>
+
+<option value="CONTACTED">
+
+CONTACTED
+
+</option>
+
+<option value="CONVERTED">
+
+CONVERTED
+
+</option>
+
+</select>
+
+
+
+
+<button
+
+className="btn btn-warning me-3"
+
+onClick={updateLead}
+
+>
+
+Update Lead
+
+</button>
+
+
+
+
+<button
+
+className="btn btn-secondary"
+
+onClick={()=>
+
+setEditingLead(null)
+
+}
+
+>
+
+Cancel
+
+</button>
+
+</div>
+
+}
 
 
 
@@ -840,7 +1169,17 @@ function Leads() {
                       &&
 
                       <td>
+<button
 
+className="btn btn-primary btn-sm me-2"
+
+onClick={() => startEdit(lead)}
+
+>
+
+Edit
+
+</button>
 
                         <button
 
@@ -1074,8 +1413,17 @@ function Leads() {
                     Copy Email
 
                   </button>
+<button
 
+className="btn btn-success"
 
+onClick={sendEmail}
+
+>
+
+Send Email
+
+</button>
                   <button
 
                     className="btn btn-secondary"

@@ -5,7 +5,6 @@ import com.xeno.xenocrm.repository.LeadRepository;
 import com.xeno.xenocrm.service.AIService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,22 +19,24 @@ public class AIController {
     private LeadRepository leadRepository;
 
 
-
-    @GetMapping("/email/{id}")
-
+    @GetMapping(
+            value = "/email/{id}",
+            produces = "text/plain"
+    )
     public String generateEmail(
 
             @PathVariable Long id) {
 
 
-
         Lead lead =
 
-                leadRepository.findById(id)
+                leadRepository
 
-                        .orElseThrow(() ->
+                        .findById(id)
 
-                                new RuntimeException(
+                        .orElseThrow(
+
+                                () -> new RuntimeException(
 
                                         "Lead Not Found"
 
@@ -44,8 +45,11 @@ public class AIController {
                         );
 
 
+        return aiService.generateAIEmail(
 
-        return aiService.generateEmail(lead);
+                lead
+
+        );
 
     }
 

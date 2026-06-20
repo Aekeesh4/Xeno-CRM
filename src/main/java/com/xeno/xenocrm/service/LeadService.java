@@ -84,6 +84,68 @@ public class LeadService {
         return leadRepository.findAll();
 
     }
+    public Lead updateLead(Long id, Lead newLead) {
+
+        Lead lead = leadRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Lead Not Found"));
+
+        lead.setCustomerName(
+                newLead.getCustomerName());
+
+        lead.setEmail(
+                newLead.getEmail());
+
+        lead.setPhone(
+                newLead.getPhone());
+
+        lead.setCompany(
+                newLead.getCompany());
+
+        lead.setSource(
+                newLead.getSource());
+
+        lead.setAssignedTo(
+                newLead.getAssignedTo());
+
+        lead.setStatus(
+                newLead.getStatus());
+
+        lead.setNotes(
+                newLead.getNotes());
+
+
+        // Recalculate AI Fields
+
+        int score =
+                aiService.calculateLeadScore(lead);
+
+        lead.setAiScore(score);
+
+        lead.setPriority(
+                aiService.getPriority(score));
+
+        lead.setAiSummary(
+                aiService.generateSummary(lead));
+
+
+        Lead updatedLead =
+                leadRepository.save(lead);
+
+
+        activityService.saveActivity(
+
+                "Lead "
+
+                        + updatedLead.getCustomerName()
+
+                        + " updated"
+
+        );
+
+
+        return updatedLead;
+    }
 
 
 

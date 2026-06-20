@@ -521,8 +521,108 @@ function Customers() {
 
 
 
-      {/* FORM SAME RAHEGA */}
-      {/* Tumhara existing form yahin rahega */}
+      <div className="card shadow border-0 p-4 mb-4">
+
+        <h4 className="mb-4">
+          {editingCustomer ? "Edit Customer" : "Add Customer"}
+        </h4>
+
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Customer Name"
+          className="form-control mb-3"
+        />
+
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          className="form-control mb-3"
+        />
+
+        <input
+          type="text"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          placeholder="Phone"
+          className="form-control mb-3"
+        />
+
+        <input
+          type="text"
+          name="company"
+          value={formData.company}
+          onChange={handleChange}
+          placeholder="Company"
+          className="form-control mb-3"
+        />
+
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+          className="form-select mb-3"
+        >
+          <option value="ACTIVE">ACTIVE</option>
+          <option value="CONTACTED">CONTACTED</option>
+          <option value="INACTIVE">INACTIVE</option>
+        </select>
+
+        {
+          editingCustomer ?
+
+          <div>
+
+            <button
+              className="btn btn-warning me-2"
+              onClick={updateCustomer}
+              disabled={loading}
+            >
+              Update Customer
+            </button>
+
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+
+                setEditingCustomer(null);
+
+                setFormData({
+
+                  name: "",
+                  email: "",
+                  phone: "",
+                  company: "",
+                  status: "ACTIVE",
+
+                });
+
+              }}
+            >
+              Cancel
+            </button>
+
+          </div>
+
+          :
+
+          <button
+            className="btn btn-primary"
+            onClick={addCustomer}
+            disabled={loading}
+          >
+            Add Customer
+          </button>
+
+        }
+
+      </div>
 
       <input
 
