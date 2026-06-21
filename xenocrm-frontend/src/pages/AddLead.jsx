@@ -65,7 +65,7 @@ function AddLead() {
 
       const response = await fetch(
 
-        "http://localhost:8081/api/lead/add",
+        "https://xeno-crm-production-1dfc.up.railway.app/api/lead/add",
 
         {
 

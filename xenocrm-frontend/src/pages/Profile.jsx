@@ -13,7 +13,7 @@ function Profile() {
 
   useEffect(() => {
 
-    fetch("http://localhost:8081/api/dashboard/total-customers")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/dashboard/total-customers")
 
       .then(res => res.json())
 
@@ -21,7 +21,7 @@ function Profile() {
 
 
 
-    fetch("http://localhost:8081/api/dashboard/total-leads")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/dashboard/total-leads")
 
       .then(res => res.json())
 

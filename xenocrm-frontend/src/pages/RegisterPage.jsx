@@ -15,7 +15,7 @@ function Register() {
     try {
 
       const response = await fetch(
-        "http://localhost:8081/api/auth/register",
+        "https://xeno-crm-production-1dfc.up.railway.app/api/auth/register",
         {
           method: "POST",
 

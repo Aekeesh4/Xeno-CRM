@@ -42,43 +42,43 @@ function Dashboard() {
 
   useEffect(() => {
 
-    fetch("http://localhost:8081/api/dashboard/total-customers")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/dashboard/total-customers")
       .then(res => res.json())
       .then(data => setTotalCustomers(data));
 
 
 
-    fetch("http://localhost:8081/api/dashboard/total-leads")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/dashboard/total-leads")
       .then(res => res.json())
       .then(data => setTotalLeads(data));
 
 
 
-    fetch("http://localhost:8081/api/dashboard/new-leads")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/dashboard/new-leads")
       .then(res => res.json())
       .then(data => setNewLeads(data));
 
 
 
-    fetch("http://localhost:8081/api/dashboard/contacted-leads")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/dashboard/contacted-leads")
       .then(res => res.json())
       .then(data => setContactedLeads(data));
 
 
 
-    fetch("http://localhost:8081/api/dashboard/converted-leads")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/dashboard/converted-leads")
       .then(res => res.json())
       .then(data => setConvertedLeads(data));
 
 
 
-    fetch("http://localhost:8081/api/activity/recent")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/activity/recent")
       .then(res => res.json())
       .then(data => setActivities(data));
 
 
 
-    fetch("http://localhost:8081/api/ai/insights")
+    fetch("https://xeno-crm-production-1dfc.up.railway.app/api/ai/insights")
       .then(res => res.json())
       .then(data => setInsights(data))
       .catch(err => console.log(err));

@@ -37,7 +37,7 @@ function Customers() {
     try {
 
       const response = await fetch(
-        "http://localhost:8081/api/customer/all"
+        "https://xeno-crm-production-1dfc.up.railway.app/api/customer/all"
       );
 
       const data = await response.json();
@@ -163,7 +163,7 @@ function Customers() {
 
       await fetch(
 
-        "http://localhost:8081/api/customer/add",
+        "https://xeno-crm-production-1dfc.up.railway.app/api/customer/add",
 
         {
 
@@ -248,7 +248,7 @@ function Customers() {
 
       await fetch(
 
-        `http://localhost:8081/api/customer/delete/${id}`,
+        `https://xeno-crm-production-1dfc.up.railway.app/api/customer/delete/${id}`,
 
         {
 
@@ -323,7 +323,7 @@ function Customers() {
 
       await fetch(
 
-        `http://localhost:8081/api/customer/update/${editingCustomer}`,
+        `https://xeno-crm-production-1dfc.up.railway.app/api/customer/update/${editingCustomer}`,
 
         {
 

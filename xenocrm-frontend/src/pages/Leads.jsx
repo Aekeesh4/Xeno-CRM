@@ -67,7 +67,7 @@ const [formData, setFormData] = useState({
 
       const response = await fetch(
 
-        "http://localhost:8081/api/lead/all"
+        "https://xeno-crm-production-1dfc.up.railway.app/api/lead/all"
 
       );
 
@@ -115,7 +115,7 @@ const [formData, setFormData] = useState({
 
       const response = await fetch(
 
-        `http://localhost:8081/api/ai/email/${id}`
+        `https://xeno-crm-production-1dfc.up.railway.app/api/ai/email/${id}`
 
       );
 
@@ -187,7 +187,7 @@ const sendEmail = async () => {
 
     await fetch(
 
-      "http://localhost:8081/api/email/send",
+      "https://xeno-crm-production-1dfc.up.railway.app/api/email/send",
 
       {
 
@@ -348,7 +348,7 @@ const sendEmail = async () => {
 
       await fetch(
 
-        `http://localhost:8081/api/lead/status/${id}`,
+        `https://xeno-crm-production-1dfc.up.railway.app/api/lead/status/${id}`,
 
         {
 
@@ -413,7 +413,7 @@ const sendEmail = async () => {
 
       await fetch(
 
-        `http://localhost:8081/api/lead/convert/${id}`,
+        `https://xeno-crm-production-1dfc.up.railway.app/api/lead/convert/${id}`,
 
         {
 
@@ -475,7 +475,7 @@ const sendEmail = async () => {
 
       await fetch(
 
-        `http://localhost:8081/api/lead/delete/${id}`,
+        `https://xeno-crm-production-1dfc.up.railway.app/api/lead/delete/${id}`,
 
         {
 
@@ -539,7 +539,7 @@ const sendEmail = async () => {
 
       await fetch(
 
-        `http://localhost:8081/api/lead/update/${editingLead}`,
+        `https://xeno-crm-production-1dfc.up.railway.app/api/lead/update/${editingLead}`,
 
         {
 
