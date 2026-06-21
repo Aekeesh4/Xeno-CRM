@@ -52,9 +52,9 @@ const [formData, setFormData] = useState({
     );
 
 
-  const isAdmin =
+  const isAdmin =true;
 
-    user?.role === "ADMIN";
+
 
 
 
