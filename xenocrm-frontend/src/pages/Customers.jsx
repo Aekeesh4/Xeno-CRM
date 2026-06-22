@@ -532,7 +532,7 @@ function Customers() {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          placeholder="Customer Name"
+          placeholder="Enter Customer Name"
           className="form-control mb-3"
         />
 
@@ -541,7 +541,7 @@ function Customers() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email"
+         placeholder="Enter Email Address"
           className="form-control mb-3"
         />
 
@@ -550,7 +550,7 @@ function Customers() {
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          placeholder="Phone"
+          placeholder="Enter Phone Number"
           className="form-control mb-3"
         />
 
@@ -559,7 +559,7 @@ function Customers() {
           name="company"
           value={formData.company}
           onChange={handleChange}
-          placeholder="Company"
+         placeholder="Enter Company Name"
           className="form-control mb-3"
         />
 
@@ -569,9 +569,23 @@ function Customers() {
           onChange={handleChange}
           className="form-select mb-3"
         >
-          <option value="ACTIVE">ACTIVE</option>
-          <option value="CONTACTED">CONTACTED</option>
-          <option value="INACTIVE">INACTIVE</option>
+          <option value="ACTIVE">
+
+            Active Customer
+
+          </option>
+
+          <option value="CONTACTED">
+
+            Contacted
+
+          </option>
+
+          <option value="INACTIVE">
+
+            Inactive Customer
+
+          </option>
         </select>
 
         {
@@ -584,7 +598,7 @@ function Customers() {
               onClick={updateCustomer}
               disabled={loading}
             >
-              Update Customer
+              Save Changes
             </button>
 
             <button
@@ -617,7 +631,7 @@ function Customers() {
             onClick={addCustomer}
             disabled={loading}
           >
-            Add Customer
+           + Add Customer
           </button>
 
         }
@@ -628,7 +642,7 @@ function Customers() {
 
         className="form-control mb-4"
 
-        placeholder="Search Customer"
+       placeholder="Search Customer by Name..."
 
         value={search}
 
@@ -731,7 +745,7 @@ function Customers() {
 
                       >
 
-                        Edit
+                        ✏ Edit
 
                       </button>
 
@@ -749,7 +763,7 @@ function Customers() {
 
                       >
 
-                        Delete
+                       🗑 Delete
 
                       </button>
 

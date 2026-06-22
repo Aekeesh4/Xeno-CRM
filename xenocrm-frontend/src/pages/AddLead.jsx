@@ -153,18 +153,26 @@ function AddLead() {
 
   return (
 
-    <div className="container mt-4">
+    <div className="container mt-5">
 
-      <div className="card shadow-lg border-0">
+      <div
+        className="card border-0 shadow-lg"
+        style={{
+          maxWidth: "900px",
+          margin: "auto",
+          background: "#1e293b",
+          borderRadius: "20px",
+          color: "white",
+        }}
+      >
 
         <div className="card-body p-5">
 
-          <h2 className="fw-bold mb-4">
+          <h1 className="fw-bold mb-4 text-center">
 
             Add New Lead
 
-          </h2>
-
+          </h1>
 
 
           <form onSubmit={saveLead}>
@@ -172,7 +180,7 @@ function AddLead() {
 
             <div className="row">
 
-              <div className="col-md-6 mb-3">
+              <div className="col-md-6 mb-4">
 
                 <input
 
@@ -182,7 +190,7 @@ function AddLead() {
 
                   name="customerName"
 
-                  placeholder="Customer Name"
+                  placeholder="Enter Customer Name"
 
                   value={lead.customerName}
 
@@ -195,7 +203,8 @@ function AddLead() {
               </div>
 
 
-              <div className="col-md-6 mb-3">
+
+              <div className="col-md-6 mb-4">
 
                 <input
 
@@ -205,7 +214,7 @@ function AddLead() {
 
                   name="email"
 
-                  placeholder="Email"
+                  placeholder="Enter Email Address"
 
                   value={lead.email}
 
@@ -218,7 +227,9 @@ function AddLead() {
               </div>
 
 
-              <div className="col-md-6 mb-3">
+
+
+              <div className="col-md-6 mb-4">
 
                 <input
 
@@ -228,7 +239,7 @@ function AddLead() {
 
                   name="phone"
 
-                  placeholder="Phone"
+                  placeholder="Enter Phone Number"
 
                   value={lead.phone}
 
@@ -242,7 +253,8 @@ function AddLead() {
 
 
 
-              <div className="col-md-6 mb-3">
+
+              <div className="col-md-6 mb-4">
 
                 <input
 
@@ -252,7 +264,7 @@ function AddLead() {
 
                   name="company"
 
-                  placeholder="Company"
+                  placeholder="Enter Company Name"
 
                   value={lead.company}
 
@@ -264,7 +276,9 @@ function AddLead() {
 
 
 
-              <div className="col-md-6 mb-3">
+
+
+              <div className="col-md-6 mb-4">
 
                 <input
 
@@ -274,7 +288,7 @@ function AddLead() {
 
                   name="source"
 
-                  placeholder="Lead Source"
+                  placeholder="Lead Source (Website, LinkedIn, Referral)"
 
                   value={lead.source}
 
@@ -286,7 +300,9 @@ function AddLead() {
 
 
 
-              <div className="col-md-6 mb-3">
+
+
+              <div className="col-md-6 mb-4">
 
                 <input
 
@@ -296,7 +312,7 @@ function AddLead() {
 
                   name="assignedTo"
 
-                  placeholder="Assigned To"
+                  placeholder="Assign To"
 
                   value={lead.assignedTo}
 
@@ -307,17 +323,20 @@ function AddLead() {
               </div>
 
 
-              <div className="col-12 mb-3">
+
+
+
+              <div className="col-12 mb-4">
 
                 <textarea
 
                   className="form-control"
 
-                  rows="4"
+                  rows="5"
 
                   name="notes"
 
-                  placeholder="Notes"
+                  placeholder="Write additional notes here..."
 
                   value={lead.notes}
 
@@ -327,13 +346,15 @@ function AddLead() {
 
               </div>
 
+
             </div>
+
 
 
 
             <button
 
-              className="btn btn-primary px-4"
+              className="btn btn-primary w-100 py-3 fw-bold"
 
               type="submit"
 
@@ -345,11 +366,11 @@ function AddLead() {
 
                 loading
 
-                ?
+                  ?
 
-                "Saving..."
+                "Saving Lead..."
 
-                :
+                  :
 
                 "Add Lead"
 

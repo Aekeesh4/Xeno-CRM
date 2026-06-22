@@ -56,50 +56,61 @@ function Register() {
 
   return (
 
-    <div className="container mt-5">
+    <div className="container mt-5" style={{maxWidth:"600px"}}>
 
-      <h1>Register</h1>
-
-      <input
-        className="form-control mb-3"
-        placeholder="Name"
-        onChange={(e) => setName(e.target.value)}
-      />
-
-      <input
-        className="form-control mb-3"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <input
-        type="password"
-        className="form-control mb-3"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <select
-        className="form-control mb-3"
-        onChange={(e) => setRole(e.target.value)}
+      <div
+        className="p-5 rounded shadow"
+        style={{
+          background:"#1e293b",
+          color:"white"
+        }}
       >
 
-        <option value="USER">
-          USER
-        </option>
+        <h1 className="mb-4 text-center">
+          Register
+        </h1>
 
-        <option value="ADMIN">
-          ADMIN
-        </option>
+        <input
+          type="text"
+          className="form-control mb-3"
+          placeholder="Enter your full name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-      </select>
+        <input
+          type="email"
+          className="form-control mb-3"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <button
-        className="btn btn-success"
-        onClick={handleRegister}
-      >
-        Register
-      </button>
+        <input
+          type="password"
+          className="form-control mb-3"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <select
+          className="form-control mb-4"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option value="USER">USER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+
+        <button
+          className="btn btn-success w-100"
+          onClick={handleRegister}
+        >
+          Register
+        </button>
+
+      </div>
 
     </div>
 

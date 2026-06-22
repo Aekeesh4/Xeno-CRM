@@ -66,36 +66,60 @@ function Login() {
 
   return (
 
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{ maxWidth: "600px" }}
+    >
 
-      <h1>Login</h1>
-
-      <input
-        type="email"
-        className="form-control mb-3"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <input
-        type="password"
-        className="form-control mb-3"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <button
-        className="btn btn-primary"
-        onClick={handleLogin}
+      <div
+        className="p-5 rounded shadow"
+        style={{
+          background: "#1e293b",
+          color: "white",
+        }}
       >
-        Login
-      </button>
+
+        <h1
+          className="text-center mb-4"
+        >
+          Login
+        </h1>
+
+        <input
+          type="email"
+          className="form-control mb-3"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+        />
+
+        <input
+          type="password"
+          className="form-control mb-4"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+        />
+
+        <button
+          className="btn btn-primary w-100"
+          onClick={handleLogin}
+        >
+
+          Login
+
+        </button>
+
+      </div>
 
     </div>
 
   );
+
 }
 
 export default Login;
