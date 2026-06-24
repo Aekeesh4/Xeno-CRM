@@ -1,21 +1,27 @@
 package com.xeno.xenocrm.service;
 
 import com.xeno.xenocrm.entity.Lead;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.HashMap;
-import java.util.Map;
+
 @Service
 public class AIService {
+
+    @Autowired
+    private GeminiService geminiService;
+
+    // ===========================
+    // AI Lead Scoring
+    // ===========================
 
     public int calculateLeadScore(Lead lead) {
 
         int score = 0;
 
-        // Source Score
+        // Referral / Source Score
         if (lead.getSource() != null) {
 
-            String source =
-                    lead.getSource().toLowerCase();
+            String source = lead.getSource().toLowerCase();
 
             if (source.contains("referral")) {
 
@@ -32,76 +38,58 @@ public class AIService {
             } else {
 
                 score += 10;
-
             }
         }
 
+        // Company Available
+        if (lead.getCompany() != null &&
+                !lead.getCompany().isBlank()) {
 
-        // Company Score
+            score += 20;
+        }
 
-        if (lead.getCompany() != null
-                && !lead.getCompany().isBlank()) {
+        // Notes Quality
+        if (lead.getNotes() != null &&
+                lead.getNotes().length() > 50) {
 
             score += 20;
 
-        }
-
-
-        // Notes Score
-
-        if (lead.getNotes() != null
-                && lead.getNotes().length() > 50) {
-
-            score += 20;
-
-        }
-
-        else if (lead.getNotes() != null
-                && lead.getNotes().length() > 20) {
+        } else if (lead.getNotes() != null &&
+                lead.getNotes().length() > 20) {
 
             score += 10;
-
         }
 
-
         // Email Score
+        if (lead.getEmail() != null &&
+                !lead.getEmail().isBlank()) {
 
-        if (lead.getEmail() != null
-                && !lead.getEmail().isBlank()) {
-
-            String email =
-                    lead.getEmail().toLowerCase();
+            String email = lead.getEmail().toLowerCase();
 
             if (email.endsWith("@gmail.com")) {
 
                 score += 10;
 
-            }
-
-            else {
+            } else {
 
                 score += 25;
-
             }
-
         }
 
-
-        // Phone Score
-
-        if (lead.getPhone() != null
-                && !lead.getPhone().isBlank()) {
+        // Phone Available
+        if (lead.getPhone() != null &&
+                !lead.getPhone().isBlank()) {
 
             score += 15;
-
         }
-
 
         return Math.min(score, 100);
 
     }
 
-
+    // ===========================
+    // Priority
+    // ===========================
 
     public String getPriority(int score) {
 
@@ -109,200 +97,161 @@ public class AIService {
 
             return "HOT LEAD 🔥";
 
-        }
-
-        else if (score >= 50) {
+        } else if (score >= 50) {
 
             return "WARM LEAD ⭐";
 
         }
 
-        else {
-
-            return "COLD LEAD ❄";
-
-        }
-
+        return "COLD LEAD ❄";
     }
-
-
+    // ===========================
+    // AI Lead Summary
+    // ===========================
 
     public String generateSummary(Lead lead) {
 
-        StringBuilder summary =
-                new StringBuilder();
+        StringBuilder summary = new StringBuilder();
 
-        summary.append("AI ANALYSIS:\n\n");
+        summary.append("🤖 AI Lead Analysis\n\n");
 
-        summary.append("Lead : ")
+        summary.append("Lead Name : ")
                 .append(lead.getCustomerName())
                 .append("\n");
 
-
-        if (lead.getCompany() != null
-                && !lead.getCompany().isBlank()) {
+        if (lead.getCompany() != null &&
+                !lead.getCompany().isBlank()) {
 
             summary.append("Company : ")
                     .append(lead.getCompany())
                     .append("\n");
-
         }
 
+        if (lead.getSource() != null) {
 
-        summary.append("Source : ")
-                .append(lead.getSource())
-                .append("\n");
-
-
-        summary.append("\nInsights:\n");
-
-
-        if (lead.getEmail() != null) {
-
-            summary.append(
-                    "✓ Email Available\n"
-            );
-
+            summary.append("Source : ")
+                    .append(lead.getSource())
+                    .append("\n");
         }
 
-        if (lead.getPhone() != null) {
+        summary.append("\nInsights\n");
 
-            summary.append(
-                    "✓ Phone Available\n"
-            );
+        if (lead.getEmail() != null &&
+                !lead.getEmail().isBlank()) {
 
+            if (lead.getEmail().toLowerCase().endsWith("@gmail.com")) {
+
+                summary.append("• Personal Email Detected\n");
+
+            } else {
+
+                summary.append("• Corporate Email Detected\n");
+            }
         }
 
-        if (lead.getCompany() != null) {
+        if (lead.getCompany() != null &&
+                !lead.getCompany().isBlank()) {
 
-            summary.append(
-                    "✓ Company Information Available\n"
-            );
-
+            summary.append("• Company Information Available\n");
         }
 
+        if (lead.getSource() != null &&
+                lead.getSource().equalsIgnoreCase("Referral")) {
 
-        summary.append(
-                "\nRecommended Action:\n"
-        );
+            summary.append("• Referral Lead (High Conversion Probability)\n");
+        }
 
-        summary.append(
-                "Contact within 24 hours."
-        );
-
+        summary.append("\nRecommendation\n");
+        summary.append("Contact within 24 hours for maximum conversion.");
 
         return summary.toString();
-
     }
 
 
-
-    // AI EMAIL GENERATOR
+    // ===========================
+    // AI Email Generator
+    // ===========================
 
     public String generateAIEmail(Lead lead) {
 
         String subject;
 
-        if (lead.getCompany() != null
-                && !lead.getCompany().isBlank()) {
+        if (lead.getCompany() != null &&
+                !lead.getCompany().isBlank()) {
 
-            subject =
-                    "How Xeno CRM can help "
-                            + lead.getCompany();
+            subject = "How Xeno CRM can help " + lead.getCompany();
 
+        } else {
+
+            subject = "Boost Your Business with Xeno CRM";
         }
 
-        else {
-
-            subject =
-                    "Boost Your Business with Xeno CRM";
-
-        }
-
-
-        StringBuilder email =
-                new StringBuilder();
-
+        StringBuilder email = new StringBuilder();
 
         email.append("Subject: ")
                 .append(subject)
                 .append("\n\n");
 
-
         email.append("Hi ")
                 .append(lead.getCustomerName())
                 .append(",\n\n");
 
+        email.append("Thank you for showing interest in Xeno CRM.\n\n");
 
-        email.append(
-                "Thank you for showing interest in Xeno CRM.\n\n"
-        );
-
-
-        if (lead.getCompany() != null
-                && !lead.getCompany().isBlank()) {
+        if (lead.getCompany() != null &&
+                !lead.getCompany().isBlank()) {
 
             email.append("We believe ")
-
                     .append(lead.getCompany())
-
-                    .append(
-                            " can improve customer management, sales tracking and follow-ups using our CRM solution.\n\n"
-                    );
-
+                    .append(" can improve customer management, sales tracking, automation and customer engagement using Xeno CRM.\n\n");
         }
 
+        if (lead.getNotes() != null &&
+                !lead.getNotes().isBlank()) {
 
-        if (lead.getNotes() != null
-                && !lead.getNotes().isBlank()) {
-
-            email.append(
-                            "We noticed your requirement: "
-                    )
-
+            email.append("We noticed your requirement:\n")
                     .append(lead.getNotes())
-
-                    .append(".\n\n");
-
+                    .append("\n\n");
         }
 
-
-        email.append(
-                "Our team would love to schedule a quick demo and discuss how Xeno CRM can help your business grow.\n\n"
-        );
-
+        email.append("We would love to schedule a quick demo and show how Xeno CRM can help your business grow.\n\n");
 
         email.append("Regards,\n");
-
         email.append("Xeno CRM Team");
 
-
         return email.toString();
-
     }
-    public Map<String, Object> generateCampaign(String prompt) {
+    // ===========================
+    // Gemini AI Campaign Generator
+    // ===========================
 
-        Map<String, Object> result = new HashMap<>();
+    public String generateCampaign(String prompt) {
 
-        result.put("audience", "Inactive Customers");
+        String fullPrompt = """
+You are an Enterprise CRM AI Assistant.
 
-        result.put("channel", "Email");
+Generate a professional CRM marketing campaign.
 
-        result.put("offer", "15% Discount");
+User Request:
+%s
 
-        result.put("subject", "We Miss You!");
+Return a clean, professional response with the following headings:
 
-        result.put("bestTime", "Tuesday 10 AM");
+🎯 Audience
+📧 Recommended Channel
+📝 Subject
+🎁 Offer
+⏰ Best Time
+📈 Expected Open Rate
+📊 Expected CTR
+🤖 AI Recommendation
 
-        result.put("openRate", "46%");
+Do not return JSON.
+Do not return markdown.
+Return only readable text.
+""".formatted(prompt);
 
-        result.put(
-                "summary",
-                "AI recommends targeting inactive customers with a personalized discount campaign."
-        );
-
-        return result;
-
+        return geminiService.generateContent(fullPrompt);
     }
 
 }

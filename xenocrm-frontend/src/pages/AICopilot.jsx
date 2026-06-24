@@ -45,6 +45,11 @@ function AICopilot() {
         }
 
       );
+  if (!res.ok) {
+
+    throw new Error("Gemini API Error");
+
+  }
 
       const data = await res.text();
 
@@ -116,15 +121,21 @@ Generate campaign."
 
           >
 
-            {
+           {
+             loading ? (
+               <>
+                 <span
+                   className="spinner-border spinner-border-sm me-2"
+                   role="status"
+                   aria-hidden="true"
+                 ></span>
 
-              loading
-
-                ? "Generating..."
-
-                : "Generate AI Campaign"
-
-            }
+                 Generating AI...
+               </>
+             ) : (
+               "Generate AI Campaign"
+             )
+           }
 
           </button>
 
@@ -138,24 +149,22 @@ Generate campaign."
 
                 <h3>
 
-                  🤖 AI Recommendation
+                🤖 AI Campaign Recommendation
 
                 </h3>
 
                 <hr />
-
-               <h3>
-
-               🤖 Gemini AI Response
-
-               </h3>
 
                <hr />
 
                <pre
                  style={{
                    whiteSpace: "pre-wrap",
-                   fontSize: "16px"
+                   fontSize: "15px",
+                   background: "#f8f9fa",
+                   padding: "20px",
+                   borderRadius: "12px",
+                   border: "1px solid #dee2e6"
                  }}
                >
 

@@ -51,13 +51,13 @@ public class AIController {
     // ===========================
 
     @PostMapping("/campaign")
-    public Map<String, Object> generateCampaign(
+    public String generateCampaign(
             @RequestBody Map<String, String> request
     ) {
 
-        String prompt = request.get("prompt");
-
-        return aiService.generateCampaign(prompt);
+        return aiService.generateCampaign(
+                request.get("prompt")
+        );
     }
 
 
