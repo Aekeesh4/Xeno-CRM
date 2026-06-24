@@ -33,6 +33,20 @@ public class Customer {
     private String revenuePotential;
 
 
+    // ===== ADVANCED CRM FIELDS =====
+
+    private Double totalRevenue;
+
+    private Integer totalOrders;
+
+    private String customerTier;
+
+    private Integer engagementScore;
+
+    private String lastPurchaseDate;
+
+
+
     public Customer() {
     }
 
@@ -133,6 +147,56 @@ public class Customer {
 
     public void setRevenuePotential(String revenuePotential) {
         this.revenuePotential = revenuePotential;
+    }
+
+
+
+    public Double getTotalRevenue() {
+        return totalRevenue;
+    }
+
+    public void setTotalRevenue(Double totalRevenue) {
+        this.totalRevenue = totalRevenue;
+    }
+
+
+
+    public Integer getTotalOrders() {
+        return totalOrders;
+    }
+
+    public void setTotalOrders(Integer totalOrders) {
+        this.totalOrders = totalOrders;
+    }
+
+
+
+    public String getCustomerTier() {
+        return customerTier;
+    }
+
+    public void setCustomerTier(String customerTier) {
+        this.customerTier = customerTier;
+    }
+
+
+
+    public Integer getEngagementScore() {
+        return engagementScore;
+    }
+
+    public void setEngagementScore(Integer engagementScore) {
+        this.engagementScore = engagementScore;
+    }
+
+
+
+    public String getLastPurchaseDate() {
+        return lastPurchaseDate;
+    }
+
+    public void setLastPurchaseDate(String lastPurchaseDate) {
+        this.lastPurchaseDate = lastPurchaseDate;
     }
 
 }

@@ -677,7 +677,19 @@ function Customers() {
 
               <th>Status</th>
 
+              <th>Segment</th>
+
+              <th>Churn Risk</th>
+
+              <th>Revenue</th>
+
+              <th>Tier</th>
+
+              <th>AI Insight</th>
+
               <th>Actions</th>
+
+
 
             </tr>
 
@@ -705,31 +717,55 @@ function Customers() {
 
                     <td>{customer.company}</td>
 
-                    <td>
+                   <td>
 
-                      <span
+                     <span className="badge bg-primary">
 
-                        className={`badge ${
+                       {customer.segment}
 
-                          customer.status === "ACTIVE"
+                     </span>
 
-                          ?
+                   </td>
 
-                          "bg-success"
 
-                          :
+                   <td>
 
-                          "bg-warning"
+                     <span className="badge bg-danger">
 
-                        }`}
+                       {customer.churnRisk}%
 
-                      >
+                     </span>
 
-                        {customer.status}
+                   </td>
 
-                      </span>
 
-                    </td>
+                   <td>
+
+                     <span className="badge bg-success">
+
+                       {customer.revenuePotential}
+
+                     </span>
+
+                   </td>
+
+
+                   <td>
+
+                     <span className="badge bg-warning text-dark">
+
+                       {customer.customerTier}
+
+                     </span>
+
+                   </td>
+
+
+                   <td style={{maxWidth:"250px"}}>
+
+                     {customer.aiInsight}
+
+                   </td>
 
                     <td>
 
