@@ -24,7 +24,7 @@ function AICopilot() {
 
       const res = await fetch(
 
-        "https://xeno-crm-production-1dfc.up.railway.app/api/ai/campaign",
+        "https://xeno-crm-production-1dfc.up.railway.app/api/ai/gemini",
 
         {
 
@@ -46,7 +46,8 @@ function AICopilot() {
 
       );
 
-      const data = await res.json();
+      const data = await res.text();
+
 
       setResponse(data);
 
@@ -143,68 +144,24 @@ Generate campaign."
 
                 <hr />
 
-                <p>
+               <h3>
 
-                  <strong>Audience:</strong>
+               🤖 Gemini AI Response
 
-                  {response.audience}
+               </h3>
 
-                </p>
+               <hr />
 
-                <p>
+               <pre
+                 style={{
+                   whiteSpace: "pre-wrap",
+                   fontSize: "16px"
+                 }}
+               >
 
-                  <strong>Channel:</strong>
+               {response}
 
-                  {response.channel}
-
-                </p>
-
-                <p>
-
-                  <strong>Offer:</strong>
-
-                  {response.offer}
-
-                </p>
-
-                <p>
-
-                  <strong>Subject:</strong>
-
-                  {response.subject}
-
-                </p>
-
-                <p>
-
-                  <strong>Best Time:</strong>
-
-                  {response.bestTime}
-
-                </p>
-
-                <p>
-
-                  <strong>Expected Open Rate:</strong>
-
-                  {response.openRate}
-
-                </p>
-
-                <hr />
-
-                <h5>
-
-                  AI Summary
-
-                </h5>
-
-                <p>
-
-                  {response.summary}
-
-                </p>
-
+               </pre>
               </div>
 
             </div>

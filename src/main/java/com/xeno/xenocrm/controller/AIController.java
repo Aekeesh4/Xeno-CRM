@@ -3,8 +3,10 @@ package com.xeno.xenocrm.controller;
 import com.xeno.xenocrm.entity.Lead;
 import com.xeno.xenocrm.repository.LeadRepository;
 import com.xeno.xenocrm.service.AIService;
+import com.xeno.xenocrm.service.GeminiService;
+
 import java.util.Map;
-import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,52 +19,60 @@ public class AIController {
     private AIService aiService;
 
     @Autowired
+    private GeminiService geminiService;
+
+    @Autowired
     private LeadRepository leadRepository;
 
+
+    // ===========================
+    // AI Email Generator
+    // ===========================
 
     @GetMapping(
             value = "/email/{id}",
             produces = "text/plain"
     )
     public String generateEmail(
+            @PathVariable Long id
+    ) {
 
-            @PathVariable Long id) {
+        Lead lead = leadRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Lead Not Found"));
 
-
-        Lead lead =
-
-                leadRepository
-
-                        .findById(id)
-
-                        .orElseThrow(
-
-                                () -> new RuntimeException(
-
-                                        "Lead Not Found"
-
-                                )
-
-                        );
-
-
-        return aiService.generateAIEmail(
-
-                lead
-
-        );
-
+        return aiService.generateAIEmail(lead);
     }
+
+
+    // ===========================
+    // Rule Based Campaign
+    // ===========================
+
     @PostMapping("/campaign")
     public Map<String, Object> generateCampaign(
-
             @RequestBody Map<String, String> request
-
     ) {
 
         String prompt = request.get("prompt");
 
         return aiService.generateCampaign(prompt);
-
     }
+
+
+    // ===========================
+    // Gemini AI Campaign
+    // ===========================
+
+    @PostMapping("/gemini")
+    public String generateWithGemini(
+            @RequestBody Map<String, String> request
+    ) {
+
+        String prompt = request.get("prompt");
+
+        return geminiService.generateContent(prompt);
+    }
+
 }
