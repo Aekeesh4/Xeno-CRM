@@ -157,20 +157,21 @@ Generate campaign."
 
                <hr />
 
-               <pre
-                 style={{
-                   whiteSpace: "pre-wrap",
-                   fontSize: "15px",
-                   background: "#f8f9fa",
-                   padding: "20px",
-                   borderRadius: "12px",
-                   border: "1px solid #dee2e6"
-                 }}
-               >
-
-               {response}
-
-               </pre>
+              <pre
+                style={{
+                  whiteSpace: "pre-wrap",
+                  fontSize: "16px",
+                  lineHeight: "1.7",
+                  backgroundColor: "#ffffff",
+                  color: "#212529",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  border: "1px solid #dee2e6",
+                  overflowX: "auto"
+                }}
+              >
+                {response}
+              </pre>
               </div>
 
             </div>
