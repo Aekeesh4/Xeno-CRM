@@ -3,7 +3,8 @@ package com.xeno.xenocrm.controller;
 import com.xeno.xenocrm.entity.Lead;
 import com.xeno.xenocrm.repository.LeadRepository;
 import com.xeno.xenocrm.service.AIService;
-
+import java.util.Map;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,5 +53,16 @@ public class AIController {
         );
 
     }
+    @PostMapping("/campaign")
+    public Map<String, Object> generateCampaign(
 
+            @RequestBody Map<String, String> request
+
+    ) {
+
+        String prompt = request.get("prompt");
+
+        return aiService.generateCampaign(prompt);
+
+    }
 }

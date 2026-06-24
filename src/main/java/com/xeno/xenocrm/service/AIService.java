@@ -2,7 +2,8 @@ package com.xeno.xenocrm.service;
 
 import com.xeno.xenocrm.entity.Lead;
 import org.springframework.stereotype.Service;
-
+import java.util.HashMap;
+import java.util.Map;
 @Service
 public class AIService {
 
@@ -277,6 +278,30 @@ public class AIService {
 
 
         return email.toString();
+
+    }
+    public Map<String, Object> generateCampaign(String prompt) {
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("audience", "Inactive Customers");
+
+        result.put("channel", "Email");
+
+        result.put("offer", "15% Discount");
+
+        result.put("subject", "We Miss You!");
+
+        result.put("bestTime", "Tuesday 10 AM");
+
+        result.put("openRate", "46%");
+
+        result.put(
+                "summary",
+                "AI recommends targeting inactive customers with a personalized discount campaign."
+        );
+
+        return result;
 
     }
 

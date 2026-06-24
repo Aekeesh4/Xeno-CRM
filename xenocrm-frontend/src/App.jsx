@@ -12,6 +12,7 @@ import AddLead from "./pages/AddLead.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/RegisterPage.jsx";
 import Profile from "./pages/Profile.jsx";
+import AICopilot from "./pages/AICopilot.jsx";
 
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
@@ -160,6 +161,12 @@ function App() {
 
                   Profile
 
+                </Link>
+                <Link
+                  className="nav-link text-white"
+                  to="/ai-copilot"
+                >
+                  🤖 AI Copilot
                 </Link>
 
               </>
@@ -387,6 +394,14 @@ function App() {
 
             }
 
+          />
+          <Route
+            path="/ai-copilot"
+            element={
+              <ProtectedRoute>
+                <AICopilot />
+              </ProtectedRoute>
+            }
           />
 
 
