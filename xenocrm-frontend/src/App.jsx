@@ -13,7 +13,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/RegisterPage.jsx";
 import Profile from "./pages/Profile.jsx";
 import AICopilot from "./pages/AICopilot.jsx";
-
+import AIAssistant from "./pages/AIAssistant";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
@@ -160,6 +160,17 @@ function App() {
                 >
 
                   Profile
+
+                </Link>
+                <Link
+
+                  className="nav-link text-white"
+
+                  to="/ai-assistant"
+
+                >
+
+                  🤖 AI Assistant
 
                 </Link>
                 <Link
@@ -389,6 +400,21 @@ function App() {
               <ProtectedRoute>
 
                 <Profile />
+
+              </ProtectedRoute>
+
+            }
+
+          />
+          <Route
+
+            path="/ai-assistant"
+
+            element={
+
+              <ProtectedRoute>
+
+                <AIAssistant />
 
               </ProtectedRoute>
 

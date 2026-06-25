@@ -3,7 +3,8 @@ package com.xeno.xenocrm.service;
 import com.xeno.xenocrm.entity.Lead;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.xeno.xenocrm.repository.CustomerRepository;
+import com.xeno.xenocrm.repository.LeadRepository;
 @Service
 public class AIService {
 
@@ -13,7 +14,11 @@ public class AIService {
     // ===========================
     // AI Lead Scoring
     // ===========================
+    @Autowired
+    private CustomerRepository customerRepository;
 
+    @Autowired
+    private LeadRepository leadRepository;
     public int calculateLeadScore(Lead lead) {
 
         int score = 0;
@@ -252,6 +257,76 @@ Return only readable text.
 """.formatted(prompt);
 
         return geminiService.generateContent(fullPrompt);
+    }
+    // ===========================
+// AI Chat Assistant
+// ===========================
+
+    public String chatWithAI(String question) {
+
+        int customers = customerRepository.findAll().size();
+
+        int leads = leadRepository.findAll().size();
+        long vipCustomers =
+                customerRepository.findAll()
+                        .stream()
+                        .filter(c ->
+                                c.getSegment() != null &&
+                                        c.getSegment().contains("VIP"))
+                        .count();
+
+        long inactiveCustomers =
+                customerRepository.findAll()
+                        .stream()
+                        .filter(c ->
+                                c.getStatus() != null &&
+                                        c.getStatus().equalsIgnoreCase("INACTIVE"))
+                        .count();
+
+        long hotLeads =
+                leadRepository.findAll()
+                        .stream()
+                        .filter(l ->
+                                l.getAiScore() != null &&
+                                        l.getAiScore() >= 80)
+                        .count();
+
+        String prompt = """
+You are Xeno CRM AI Assistant.
+
+You are connected to a CRM system.
+
+CRM Statistics
+
+Customers : %d
+
+Leads : %d
+
+User Question:
+
+%s
+
+Answer professionally.
+
+Keep the answer under 250 words.
+
+If appropriate include:
+
+- Recommendation
+- Next Action
+- Priority
+- Reason
+""".formatted(
+                customers,
+                leads,
+                vipCustomers,
+                inactiveCustomers,
+                hotLeads,
+                question
+        );
+
+        return geminiService.generateContent(prompt);
+
     }
 
 }

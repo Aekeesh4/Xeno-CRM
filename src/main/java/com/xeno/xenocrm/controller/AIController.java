@@ -74,5 +74,19 @@ public class AIController {
 
         return geminiService.generateContent(prompt);
     }
+    @PostMapping("/chat")
+    public String chatWithAI(
+
+            @RequestBody Map<String, String> request
+
+    ) {
+
+        return aiService.chatWithAI(
+
+                request.get("question")
+
+        );
+
+    }
 
 }
